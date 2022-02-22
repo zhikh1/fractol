@@ -6,20 +6,20 @@
 /*   By: nomargen <nomargen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 18:37:30 by nomargen          #+#    #+#             */
-/*   Updated: 2022/02/20 15:38:08 by nomargen         ###   ########.fr       */
+/*   Updated: 2022/02/21 22:00:34 by nomargen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MAIN_H
 # define MAIN_H
 
-# include "../lib/mlx_linux/mlx.h"
+# include "../lib/libmlx/mlx.h"
 # include "../lib/libft/libft.h"
 # include "../inc/types.h"
 # include "../inc/defines.h"
 # include <stddef.h>
 # include <math.h>
 
-int		close_app(t_exit param, t_config *conf);
+int		close_app(t_config *conf);
 void	win_err_handler(void);
 void	param_err_handler(void);
 void	show_info(t_config *conf, int x, int y);

@@ -6,7 +6,7 @@
 /*   By: nomargen <nomargen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 20:25:39 by nomargen          #+#    #+#             */
-/*   Updated: 2022/02/20 14:45:19 by nomargen         ###   ########.fr       */
+/*   Updated: 2022/02/20 21:11:11 by nomargen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/main.h"
@@ -15,7 +15,7 @@
 void	navigate_if(int keycode, t_config *conf)
 {
 	if (keycode == ESC_KEY)
-		close_app(EXIT_KEY, conf);
+		close_app(conf);
 	else if (keycode >= LEFT_KEY && keycode <= DOWN_KEY)
 		move_pict(keycode, conf);
 	else if (keycode == R_KEY)

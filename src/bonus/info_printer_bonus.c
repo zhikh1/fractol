@@ -6,7 +6,7 @@
 /*   By: nomargen <nomargen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 20:25:39 by nomargen          #+#    #+#             */
-/*   Updated: 2022/02/20 15:45:12 by nomargen         ###   ########.fr       */
+/*   Updated: 2022/02/20 22:10:02 by nomargen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/bonus/main_bonus.h"
@@ -69,14 +69,16 @@ char	*strcat_d(char *buf, double n)
 			b = -b;
 		str_a = ft_ltoa(a);
 		str_b = ft_ltoa(b);
-		ft_strlcat(buf, str_a, 100);
-		ft_strlcat(buf, ".", 100);
-		ft_strlcat(buf, str_b, 100);
-		free(str_a);
-		free(str_b);
+		ft_strlcat(buf, str_a, 256);
+		ft_strlcat(buf, ".", 256);
+		ft_strlcat(buf, str_b, 256);
+		if (str_a)
+			free(str_a);
+		if (str_b)
+			free(str_b);
 	}
 	else
-		ft_strlcat(buf, "Inf", 100);
+		ft_strlcat(buf, "Inf", 256);
 	return (buf);
 }
 
@@ -96,27 +98,27 @@ void	put_black_sq(int *addr)
 
 void	show_info(t_config *conf, int x, int y)
 {
-	char	str[100];
+	char	str[256];
 
-	ft_strlcpy(str, "Fractal: ", 100);
+	ft_strlcpy(str, "Fractal: ", 256);
 	mlx_string_put(conf->mlx, conf->mlx_win, x, y + 0,
 		0xFFFFFF, strcat_fr_type(str, conf->fr_type));
-	ft_strlcpy(str, "Zoom: ", 100);
+	ft_strlcpy(str, "Zoom: ", 256);
 	mlx_string_put(conf->mlx, conf->mlx_win, x, y + 15,
 		0xFFFFFF, strcat_d(str, conf->zoom));
-	ft_strlcpy(str, "Iteration: ", 100);
+	ft_strlcpy(str, "Iteration: ", 256);
 	mlx_string_put(conf->mlx, conf->mlx_win, x, y + 30,
 		0xFFFFFF, strcat_i(str, conf->iter_cnt));
-	ft_strlcpy(str, "Palette maping: ", 100);
+	ft_strlcpy(str, "Palette maping: ", 256);
 	mlx_string_put(conf->mlx, conf->mlx_win, x, y + 45,
 		0xFFFFFF, strcat_en(str, conf->palette.map_en));
-	ft_strlcpy(str, "Color mode: ", 100);
+	ft_strlcpy(str, "Color mode: ", 256);
 	if (conf->col_cntr)
 	{
-		ft_strlcat(str, "Palette #", 100);
+		ft_strlcat(str, "Palette #", 256);
 		strcat_i(str, conf->col_cntr);
 	}
 	else
-		ft_strlcat(str, "Algorithm", 100);
+		ft_strlcat(str, "Algorithm", 256);
 	mlx_string_put(conf->mlx, conf->mlx_win, x, y + 60, 0xFFFFFF, str);
 }

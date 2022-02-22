@@ -6,23 +6,23 @@
 /*   By: nomargen <nomargen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 20:24:58 by nomargen          #+#    #+#             */
-/*   Updated: 2022/02/20 15:36:36 by nomargen         ###   ########.fr       */
+/*   Updated: 2022/02/20 21:17:54 by nomargen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/bonus/main_bonus.h"
 
-int	close_app(t_exit param, t_config *conf)
+int	close_app(t_config *conf)
 {
-	if (param == EXIT_KEY)
+	if (conf->exit == EXIT_KEY)
 		ft_putstr_fd("Closing app...\n", 1);
-	else if (param == EXIT_BAD_INIT)
+	else if (conf->exit == EXIT_BAD_INIT)
 		ft_putstr_fd("Bad init!\n", 1);
-	else if (param == EXIT_BAD_PARAM)
+	else if (conf->exit == EXIT_BAD_PARAM)
 	{
-		ft_putstr_fd("Bad param!\n", 1);
+		ft_putstr_fd("Bad arguments!\n", 1);
 		ft_putstr_fd(PARAM_INFO_MSG, 1);
 	}
-	if (param == EXIT_KEY)
+	if (conf->exit == EXIT_KEY)
 	{
 		mlx_destroy_image(conf->mlx, conf->pix_data.img);
 		mlx_destroy_image(conf->mlx, conf->palette.img);
@@ -65,7 +65,10 @@ int	render_frame(t_config *conf)
 void	reset_param(t_config *conf)
 {
 	if (conf->fr_type == ERR)
-		close_app(EXIT_BAD_INIT, conf);
+	{
+		conf->exit = EXIT_BAD_INIT;
+		close_app(conf);
+	}
 	else if (conf->fr_type == MAND)
 		conf->fr_func = is_mand;
 	else if (conf->fr_type == JULIA)
@@ -78,6 +81,7 @@ void	reset_param(t_config *conf)
 		conf->fr_func = is_newton;
 	conf->info_en = 1;
 	conf->iter_cnt = INIT_ITER;
+	conf->exit = EXIT_KEY;
 	reset_scale(conf);
 }
 
@@ -105,7 +109,7 @@ int	init_win(t_config *conf)
 	conf->change_f = 1;
 	mlx_loop_hook(conf->mlx, render_frame, conf);
 	mlx_mouse_hook(conf->mlx_win, mouse_hook, conf);
-	mlx_hook(conf->mlx_win, 17, (1L << 2), close_app, EXIT_KEY);
+	mlx_hook(conf->mlx_win, 17, (1L << 2), close_app, conf);
 	mlx_key_hook(conf->mlx_win, keyboard_hook, conf);
 	return (1);
 }
@@ -122,9 +126,15 @@ int	main(int argc, char const *argv[])
 			mlx_loop(conf.mlx);
 		}
 		else
-			close_app(EXIT_BAD_INIT, &conf);
+		{
+			conf.exit = EXIT_BAD_INIT;
+			close_app(&conf);
+		}
 	}	
 	else
-		close_app(EXIT_BAD_PARAM, &conf);
+	{
+		conf.exit = EXIT_BAD_PARAM;
+		close_app(&conf);
+	}
 	return (0);
 }

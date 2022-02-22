@@ -6,7 +6,7 @@
 /*   By: nomargen <nomargen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 20:50:41 by nomargen          #+#    #+#             */
-/*   Updated: 2022/02/20 15:38:11 by nomargen         ###   ########.fr       */
+/*   Updated: 2022/02/20 21:04:11 by nomargen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef TYPES_H
@@ -67,6 +67,7 @@ typedef struct s_config
 	void		*mlx_win;
 	int			(*fr_func)(struct s_config *config, t_complex pos);
 	int			change_f;
+	t_exit		exit;
 }	t_config;
 
 #endif
